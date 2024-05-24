@@ -32,3 +32,16 @@
     ```
     python manage.py runserver
     ```
+
+# Tech Stack
+## Backend
+    - django
+    - django restframework
+    - pdfkit
+    - wkhtmltopdf
+## Frontend
+    - html
+    - CSS
+## Database
+    - PostgreSQL
+    
