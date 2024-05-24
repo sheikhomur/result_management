@@ -1,0 +1,16 @@
+{% extends 'department/base.html' %} {% block content %}
+<a href="{% url 'create_session' %}" class="btn btn-success">Create Session</a>
+
+<table class="table table-bordered mt-4">
+  <tr>
+    <th class="text-center">Name</th>
+    <th class="text-center">Action</th>
+  </tr>
+  {% for session in sessions %}
+  <tr>
+    <td class="text-center">{{ session.name }}</td>
+    <td class="text-center">Edit | Delete</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock content %}

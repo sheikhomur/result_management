@@ -1,0 +1,92 @@
+{% extends 'department/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h3>Input Result</h3>
+<hr />
+<form class="form-inline my-4" method="post">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col">{{ search_result_form.course|as_crispy_field }}</div>
+    <div class="col">{{ search_result_form.semester|as_crispy_field }}</div>
+    <div class="col">{{ search_result_form.session|as_crispy_field }}</div>
+    <div class="col">
+      <input type="submit" value="Search" class="btn btn-success mt-4" />
+    </div>
+  </div>
+</form>
+
+{% if search_result %}
+<form class="form-inline my-4" method="post">
+  {% csrf_token %}
+
+  <div style="display: none;">
+    {{ search_result_form.course }}
+    {{ search_result_form.semester }}
+    {{ search_result_form.session }}
+    <input type="hidden" name="result_submit" value="True" />
+  </div>
+
+  <h3 class="my-4">Results
+    <button id="addNewRow" class="btn btn-success">+ New Row</button>
+  </h3>
+  <table class="table table-bordered" id="resultItemTable">
+    <tr>
+      <th>Registration Number</th>
+      <th>Term Test Mark (30)</th>
+      <th>Attendance Mark (10)</th>
+      <th>Final Evaluation (60)</th>
+    </tr>
+
+    {% for result_item in results %}
+    <tr id="resultRow__{{ forloop.counter0 }}">
+      <td><input class="form-control" type="text" name="row__{{ forloop.counter0 }}" value="{{ result_item.student }}" /></td>
+      <td><input class="form-control" type="text" name="row__{{ forloop.counter0 }}" value="{{ result_item.tt_mark }}" /></td>
+      <td><input class="form-control" type="text" name="row__{{ forloop.counter0 }}" value="{{ result_item.attendance }}" /></td>
+      <td><input class="form-control" type="text" name="row__{{ forloop.counter0 }}" value="{{ result_item.final_evaluation }}" /></td>
+    </tr>
+    {% endfor %}
+
+  </table>
+  <div class="form-group">
+    <input type="submit" value="Save Changes" class="btn btn-success mt-4" />
+  </div>
+</form>
+{% endif %}
+{% endblock content %}
+
+
+{% block extra_scripts %}
+<script>
+
+  const createTdItem = (name) => {
+    const studentTd = document.createElement('td')
+    const studentInput = document.createElement('input')
+    studentInput.setAttribute('type', 'text')
+    studentInput.setAttribute('class', 'form-control')
+    studentInput.setAttribute('name', name)
+    studentTd.appendChild(studentInput)
+    return studentTd
+  }
+
+  const addNewRowButton = document.getElementById('addNewRow')
+  addNewRowButton.addEventListener('click', (e) => {
+    e.preventDefault()
+    
+    // copy the last tr
+    const resultItemTable = document.getElementById('resultItemTable')
+    const totalRow = resultItemTable.rows.length - 1
+    
+    const newRow = resultItemTable.insertRow()
+    const studentTd = createTdItem(`row__${totalRow}`)
+    const tt_markTd = createTdItem(`row__${totalRow}`)
+    const attendanceTd = createTdItem(`row__${totalRow}`)
+    const final_evaluationTd = createTdItem(`row__${totalRow}`)
+    newRow.appendChild(studentTd)
+    newRow.appendChild(tt_markTd)
+    newRow.appendChild(attendanceTd)
+    newRow.appendChild(final_evaluationTd)
+  })
+
+</script>
+{% endblock extra_scripts %}

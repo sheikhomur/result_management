@@ -1,0 +1,29 @@
+<h1>Session: {{ student.session }}</h1>
+<h1>Name of college: SEC</h1>
+<h1>Department: {{ student.department }}</h1>
+<h1>Registration Number: {{ student.registration_number }}</h1>
+<h1>Name of the student: {{ student.name }}</h1>
+
+{% for semester, results in results_dict.items %}
+  {{ semester.name }}
+  <table width="100%">
+    <tr style="text-align: center;">
+      <th>Course no.</th>
+      <th>Course Title</th>
+      <th>Credit</th>
+      <th>Grade point</th>
+      <th>Letter grade</th>
+    </tr>
+
+    {% for result in results %}
+      <tr style="text-align: center;">
+        <td>{{ result.course.code }}</td>
+        <td>{{ result.course.name }}</td>
+        <td>{{ result.course.credit }}</td>
+        <td>{{ result.gpa }}</td>
+        <td>{{ result.letter_grade }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+
+{% endfor %}

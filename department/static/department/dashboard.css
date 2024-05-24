@@ -1,0 +1,10 @@
+.gridView {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.gridView a.btn {
+    width: 250px;
+}

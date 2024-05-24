@@ -1,0 +1,19 @@
+{% extends 'department/base.html' %} {% block content %}
+<a href="{% url 'create_semester' %}" class="btn btn-success">Create Semester</a>
+
+<table class="table table-bordered mt-4">
+  <tr>
+    <th class="text-center">Title</th>
+    <th class="text-center">Semester Code</th>
+    <th class="text-center">Action</th>
+  </tr>
+  {% for semester in semesters %}
+  <tr>
+    <td class="text-center">{{ semester.name }}</td>
+    <td class="text-center">{{ semester.code }}</td>
+    <td class="text-center">Edit | Delete</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock content %}

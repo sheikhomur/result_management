@@ -1,0 +1,32 @@
+{% extends 'department/base.html' %}
+{% load static %}
+
+{% block header_scripts %}
+<link
+  href="{% static 'department/dashboard.css' %}"
+  rel="stylesheet"
+/>
+{% endblock header_scripts %}
+
+{% block content %}
+<h2>Administration</h2>
+<hr />
+<div class="row my-4">
+  <div class="gridView">
+    <a class="btn btn-success p-4" href="{% url 'list_students' %}">Students</a>
+    <a class="btn btn-success p-4" href="{% url 'list_semesters' %}">Semesters</a>
+    <a class="btn btn-success p-4" href="{% url 'list_courses' %}">Courses</a>
+    <a class="btn btn-success p-4" href="{% url 'list_sessions' %}">Sessions</a>
+  </div>
+</div>
+
+<h2 class="mt-4">Result</h2>
+<hr />
+<div class="row my-4">
+  <div class="gridView">
+    <a class="btn btn-success p-4" href="{% url 'input_result' %}">Input Result</a>
+    <a class="btn btn-success p-4" href="{% url 'result_student' %}">Check Student Result</a>
+    <a class="btn btn-success p-4" href="{% url 'list_semesters' %}">Tabulation Sheet</a>
+  </div>
+</div>
+{% endblock content %}

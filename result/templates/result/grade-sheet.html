@@ -1,0 +1,141 @@
+<style>
+  * {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  p {
+    margin: 0px;
+  }
+
+  .studentDetails {
+    font-style:normal;
+    font-weight:normal;
+    font-size:18pt;
+    font-family:FEFF35C630D;
+    color:#000000;
+  }
+
+  .gradeDetailsTable {
+    border: 1px solid;
+    border-collapse: collapse;
+    text-align: left !important;
+  }
+  .gradeDetailsTable tr:first-child {
+    border: 1px solid;
+  }
+
+  .gradeDetailsTable .firstColumn {
+    padding-right: 30px;
+  }
+  .gradeDetailsTable .secondColumn {
+    padding-right: 55px;
+  }
+  .gradeDetailsTable .thirdColumn {
+    padding-right: 10px;
+  }
+
+  .gradeTable {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 18px;
+  }
+  .gradeTable th, .gradeTable td, .gradeTable tr {
+    border: 1px solid;
+    padding: 20px 5px;
+  }
+
+  .gradeTable th {
+    padding: 5px;
+  }
+</style>
+
+<div class="logoSection">
+  <p style="text-align:center;font-size:32pt;font-family:FEFD2FE6AFA;color:#000000">
+    SYLHET ENGINEERING COLLEGE, SYLHET
+  </p>
+  <p style="text-align:center;font-size:24pt;font-family:FEFD2FE6AFA;color:#000000">
+    Department of Computer Science & Engineering
+  </p>
+</div>
+
+<div class="row">
+  <div class="left" style="text-align:center;position:absolute;top:1.6in;left:2.1in;">
+    <div style="font-weight:bold;font-size:22pt;font-family:FEFD2FE6AFA;color:#000000">Grade Certificate</div>
+    <div style="font-size:22pt;font-family:FEFA446BBFC;color:#000000">B.Sc. in CSE Examination {{ semester.exam_date|date:"Y" }}</div>
+    <div style="font-size:16pt;font-family:FEFA446BBFC;color:#000000">(Examination Held in {{ semester.exam_date|date:"F Y" }})</div>
+    <div style="font-weight:400;font-size:24pt;font-family:FEFA446BBFC;color:#000000">{{ semester.name }}</div>
+  </div>
+  <div class="right">
+    <table class="gradeDetailsTable" style="position:absolute;top:1.1in;right:0.5in;">
+      <tr><th class="firstColumn">Numeric Grade</th><th class="secondColumn">LG</th><th class="thirdColumn">GP</th></tr>
+      <tr><td class="firstColumn">80% or above</td><td class="secondColumn">A+</td><td class="thirdColumn">4.00</td></tr>
+      <tr><td class="firstColumn">75% to less than 80%</td><td class="secondColumn">A</td><td class="thirdColumn">3.75</td></tr>
+      <tr><td class="firstColumn">70% to less than 75%</td><td class="secondColumn">A-</td><td class="thirdColumn">3.50</td></tr>
+      <tr><td class="firstColumn">65% to less than 70%</td><td class="secondColumn">B+</td><td class="thirdColumn">3.25</td></tr>
+      <tr><td class="firstColumn">60% to less than 65%</td><td class="secondColumn">B</td><td class="thirdColumn">3.00</td></tr>
+      <tr><td class="firstColumn">55% to less than 60%</td><td class="secondColumn">B-</td><td class="thirdColumn">2.75</td></tr>
+      <tr><td class="firstColumn">50% to less than 55%</td><td class="secondColumn">C+</td><td class="thirdColumn">2.50</td></tr>
+      <tr><td class="firstColumn">45% to less than 50%</td><td class="secondColumn">C</td><td class="thirdColumn">2.25</td></tr>
+      <tr><td class="firstColumn">40% to less than 45%</td><td class="secondColumn">C-</td><td class="thirdColumn">2.00</td></tr>
+      <tr><td class="firstColumn">Less than 40%</td><td class="secondColumn">F</td><td class="thirdColumn">0.00</td></tr>
+    </table>
+  </div>
+</div>
+  
+  
+<div style="position:absolute;top:3.83in;left:0.95in;">
+  <p class="studentDetails">Registration No.: <span style="font-weight: bold;">{{ student.registration_number }}</span></p>
+  <p class="studentDetails">Student's Name: <span style="font-weight: bold;">{{ student.name|upper }}</span></p>
+</div>
+<div style="position:absolute;top:3.83in;left:6.02in;">
+  <p class="studentDetails">Session: {{ student.session }}</p>
+</div>
+
+<table class="gradeTable" style="position:absolute;top:4.81in;left:0.95in;width:9.5in;">
+  <tr style="text-align: center">
+    <th>SL<br>No.</th>
+    <th>Course<br>Number</th>
+    <th>Course Title</th>
+    <th>Credit</th>
+    <th>Grade<br>point</th>
+    <th>Letter<br>grade</th>
+  </tr>
+
+  {% for result in results %}
+  <tr style="text-align: center">
+    <td>{% if forloop.counter <= 9 %}0{{ forloop.counter }}{% else %}{{forloop.counter}}{% endif %}.</td>
+    <td>{{ result.course.code }}</td>
+    <td style="text-align: left;">{{ result.course.name }}</td>
+    <td>{{ result.course.credit }}</td>
+    <td>{{ result.gpa }}</td>
+    <td>{{ result.letter_grade }}</td>
+  </tr>
+  {% endfor %}
+
+  <tr style="text-align: center">
+    <th colspan="3" style="text-align: right;">Obtained Total Credit, GPA and LG:</th>
+    <th>{{ total_credit }}</th>
+    <th>{{ total_cgpa }}</th>
+    <th>{{ letter_grade }}</th>
+  </tr>
+</table>
+
+<div style="position:absolute;bottom:0.65in;left:0.65in;width:4in;font-size:20pt;">
+  <p style="font-family:FEF4B02CB3C;">Tabulators: </p>
+  <p style="margin-left:40px;margin-top:35px;font-family:FEF4B02CB3C;">01) ..........................</p>
+  <p style="margin-left:40px;margin-top:45px;font-family:FEF4B02CB3C;">02) ..........................</p>
+</div>
+
+<div style="position:absolute;bottom:0.30in;left:3.94in;">
+  <span style="font-size:20pt;font-family:FEF4B02CB3C;color:#000000">..........................................</span>
+  <div style="position:relative; left:0.24in;">
+    <span style="font-size:20pt;font-family:FEF4B02CB3C;color:#000000">Head of the Department</span>
+  </div>
+</div>
+
+<div style="position:absolute;bottom:0.30in;right:0.5in;">
+  <span style="font-size:20pt;font-family:FEF4B02CB3C;color:#000000">.............................<span>
+  <div style="position:relative; left:0.45in;">
+    <span style="font-size:20pt;font-family:FEF4B02CB3C;color:#000000">Principal</span>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+__pycache__
+.env
+env
+venv
+*.log
+*.ipynb
+.vscode
+/response.json

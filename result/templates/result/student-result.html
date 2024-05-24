@@ -1,0 +1,59 @@
+{% extends 'department/base.html' %}
+
+{% block content %}
+<form class="form-inline my-4" action="" method="post">
+  {% csrf_token %}
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        {{ form.registration_number }}
+      </div>
+    </div>
+    <div class="col">
+      <button type="submit" class="btn btn-success">Submit</button>
+    </div>
+  </div>
+</form>
+{% if student %}
+
+<div class="row">
+  <div class="col">
+    <p><b>Session</b>: {{ student.session }}</p>
+    <p><b>Name of college</b>: Sylhet Engineering College, Sylhet</p>
+    <p><b>Department</b>: {{ student.department }}</p>
+    <p><b>Registration Number</b>: {{ student.registration_number }}</p>
+    <p><b>Name of the student</b>: {{ student.name }}</p>
+  </div>
+  <div class="col">
+    <a class="btn btn-success" href="{% url 'download_student_grade_sheet' student.registration_number %}">Download Grade Sheet</a>
+  </div>
+</div>
+
+
+{% for semester, results in results_dict.items %}
+  <h3 class="my-4">{{ semester.name }}</h3>
+  <table class="table table-bordered">
+    <tr style="text-align: center;">
+      <th>SL No.</th>
+      <th>Course Number.</th>
+      <th>Course Title</th>
+      <th>Credit</th>
+      <th>Grade point</th>
+      <th>Letter grade</th>
+    </tr>
+
+    {% for result in results %}
+      <tr style="text-align: center;">
+        <td>{{ forloop.counter }}</td>
+        <td>{{ result.course.code }}</td>
+        <td>{{ result.course.name }}</td>
+        <td>{{ result.course.credit }}</td>
+        <td>{{ result.gpa }}</td>
+        <td>{{ result.letter_grade }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endfor %}
+{% endif %}
+{% endblock content %}
